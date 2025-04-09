@@ -6,10 +6,6 @@ package interfaces;
 
 import com.formdev.flatlaf.intellijthemes.*;
 
-/**
- *
- * @author Igor Sosua
- */
 public class MainFrame extends javax.swing.JFrame {
 
     /**
