@@ -9,5 +9,18 @@ package models;
  * @author Igor Sosua
  */
 public class Task {
-    
+    String description;
+    boolean isCompleted;
+
+    public void setCompleted(boolean completed) {
+        isCompleted = completed;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public String getDescription() {
+        return description;
+    }
 }
