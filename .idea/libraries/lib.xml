@@ -5,6 +5,7 @@
       <root url="jar://$PROJECT_DIR$/lib/jsvg-1.1.0.jar!/" />
       <root url="jar://$PROJECT_DIR$/lib/flatlaf-intellij-themes-3.5.1.jar!/" />
       <root url="jar://$PROJECT_DIR$/lib/flatlaf-3.5.1.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/postgresql-42.7.5.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />
