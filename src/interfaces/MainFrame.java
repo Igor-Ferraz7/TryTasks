@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package interfaces;
 
 import com.formdev.flatlaf.intellijthemes.*;
@@ -183,10 +179,7 @@ public class MainFrame extends JFrame {
     private void editButtonActionPerformed(ActionEvent evt) {//GEN-FIRST:event_editButtonActionPerformed
 
     }//GEN-LAST:event_editButtonActionPerformed
-
-    /**
-     * @param args the command line arguments
-     */
+    
 
     public static void main(String[] args) {
         /* -------- aparência FlatLaf -------- */
