@@ -1,3 +1,7 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
+ */
 package interfaces;
 
 import com.formdev.flatlaf.intellijthemes.*;
@@ -10,8 +14,11 @@ import services.TasksService;
 
 
 public class MainFrame extends JFrame {
+    private TasksService tasksService;
 
     public MainFrame() {
+        //setUndecorated(true);
+       
         initComponents();
         
         // Vincular frame do scroll com o jPanel das tarefas:
@@ -66,7 +73,7 @@ public class MainFrame extends JFrame {
         setPreferredSize(new java.awt.Dimension(560, 780));
         setResizable(false);
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Pendentes" }));
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Pendentes", "Concluídas" }));
         jComboBox1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jComboBox1ActionPerformed(evt);
@@ -169,6 +176,7 @@ public class MainFrame extends JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void addButtonActionPerformed(ActionEvent evt) {//GEN-FIRST:event_addButtonActionPerformed
+        // TODO add your handling code here:
 
     }//GEN-LAST:event_addButtonActionPerformed
 
@@ -179,7 +187,10 @@ public class MainFrame extends JFrame {
     private void editButtonActionPerformed(ActionEvent evt) {//GEN-FIRST:event_editButtonActionPerformed
 
     }//GEN-LAST:event_editButtonActionPerformed
-    
+
+    /**
+     * @param args the command line arguments
+     */
 
     public static void main(String[] args) {
         /* -------- aparência FlatLaf -------- */
