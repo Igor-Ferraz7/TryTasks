@@ -15,6 +15,7 @@ import services.TasksService;
 
 public class MainFrame extends JFrame {
     private TasksService tasksService;
+    private String description;
 
     public MainFrame() {
         //setUndecorated(true);
@@ -39,6 +40,10 @@ public class MainFrame extends JFrame {
         /* ------------- cabeçalho ------------ */
         JLabel title = new JLabel("TryTasks", SwingConstants.CENTER);
         title.setFont(title.getFont().deriveFont(Font.PLAIN, 72));  // 72 px como no print
+        
+        // Já carrega as tarefas
+        tasksService = new TasksService(jPanel2);
+        tasksService.reloadTasksList(false);
 
         /* ------------- botão + -------------- */
         int size = 40;
@@ -51,6 +56,25 @@ public class MainFrame extends JFrame {
         addButton.putClientProperty("JButton.buttonType", "roun1dRect");
         addButton.putClientProperty("Button.arc", 1000); // valor alto = círculo
         addButton.putClientProperty("JComponent.outline", "none");
+        
+        /* ------ ComboBox (Pendentes x Concluídas) ------ */
+        jComboBox1.addActionListener(e -> {
+            // Pega o item selecionado no ComboBox
+            Object sel = jComboBox1.getSelectedItem();
+            description = sel != null ? sel.toString() : "";
+            
+            jPanel2.removeAll();
+
+            // Verifica a seleção e atualiza as tarefas conforme o status
+            if (description.equals("Pendentes")) {
+                tasksService.reloadTasksList(false);
+                editButton.setVisible(true);
+            } else {
+                tasksService.reloadTasksList(true);
+                editButton.setVisible(false);
+            }
+            
+        });
 
         setLocationRelativeTo(null);
     }
