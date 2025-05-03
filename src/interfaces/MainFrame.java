@@ -201,6 +201,16 @@ public class MainFrame extends JFrame {
 
     private void addButtonActionPerformed(ActionEvent evt) {//GEN-FIRST:event_addButtonActionPerformed
         // TODO add your handling code here:
+        CreateTaskFrame createTaskFrame = new CreateTaskFrame();
+        createTaskFrame.setVisible(true);
+        createTaskFrame.addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosed(WindowEvent e) {
+                super.windowClosed(e);
+                tasksService.reloadTasksList(false);
+            }
+        });
+        createTaskFrame.setVisible(true);
 
     }//GEN-LAST:event_addButtonActionPerformed
 
