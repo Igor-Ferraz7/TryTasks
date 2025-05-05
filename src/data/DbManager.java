@@ -1,12 +1,8 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package data;
 
 import java.sql.*;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 
 public class DbManager {
     private Connection connection; // Conexão ativa no banco.
@@ -20,25 +16,31 @@ public class DbManager {
         dbManager.close();
     }
 
-    public DbManager() throws SQLException {
-        String url  = "jdbc:postgresql://db.hpwsyhmalwkmeuqdqcpm.supabase.co:5432/postgres";
-        String user = "postgres";
-        String pass = "FasoftTryTasks";
+    public DbManager() {
+        try {
+            String url = "jdbc:postgresql://aws-0-sa-east-1.pooler.supabase.com:5432/postgres"
+                    + "?user=postgres.hpwsyhmalwkmeuqdqcpm"
+                    + "&password=FasoftTryTasks"
+                    + "&sslmode=require"; // Remova o sslfactory
 
-        connection = DriverManager.getConnection(url, user, pass);
-        System.out.println("Conectado ao Supabase!");
+            connection = DriverManager.getConnection(url);
+            System.out.println("Conectado ao Supabase!");
+        } catch (SQLException e) {
+            System.err.println("Erro de conexão:");
+            e.printStackTrace();
+        }
     }
 
-    public List<String> selectTasks(boolean is_completed) {
+    public Map<Integer, String> selectTasks(boolean is_completed) {
         String sql = "SELECT * FROM tasks WHERE is_completed = ?";
-        List<String> tasks = new ArrayList<>();
+        Map<Integer, String> tasks = new HashMap<>();
 
         try (PreparedStatement ps = connection.prepareStatement(sql)) {
-            ps.setBoolean(1, is_completed); // define [is_completed = false] na consulta.
+            ps.setBoolean(1, is_completed);
             try (ResultSet rs = ps.executeQuery()) {
                 while (rs.next()) {
-                    tasks.add(rs.getString(2));
-                    printTasks(rs);
+                    tasks.put(rs.getInt(1), rs.getString(2));
+                    //printTasks(rs);
                 }
             } catch (SQLException e) {
             System.err.println("Não foi possível executar o select:");
@@ -74,7 +76,33 @@ public class DbManager {
             int linhas = ps.executeUpdate();   // linhas alteradas
             System.out.println("Alterou " + linhas + " linha(s)");
         } catch (SQLException e) {
-            System.err.println("Não foi possível inserir a tarefa:");
+            System.err.println("Não foi possível atualizar os status da tarefa:");
+            e.printStackTrace();
+        }
+    }
+
+    public void updateDescription(int id, String description) {
+        String sql = "UPDATE tasks SET description = ? WHERE id = ?";
+        try (PreparedStatement ps = connection.prepareStatement(sql)) {
+            ps.setString(1, description);
+            ps.setInt(2, id);
+            int linhas = ps.executeUpdate();   // linhas alteradas
+            System.out.println("Alterou " + linhas + " linha(s)");
+        } catch (SQLException e) {
+            System.err.println("Não foi possível atualizar a descrição da tarefa:");
+            e.printStackTrace();
+        }
+    }
+    
+    
+    public void deleteTask(int id) {
+        String sql = "DELETE FROM tasks WHERE id = ?";
+        try (PreparedStatement ps = connection.prepareStatement(sql)) {
+            ps.setInt(1, id);  // Corrigido o índice para 1
+            int linhas = ps.executeUpdate();  // Executa a deleção
+            System.out.println("Deletou " + linhas + " linha(s)");
+        } catch (SQLException e) {
+            System.err.println("Não foi possível deletar a tarefa:");
             e.printStackTrace();
         }
     }
