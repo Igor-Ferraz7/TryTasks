@@ -242,6 +242,15 @@ public class MainFrame extends JFrame {
 
     private void deleteButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteButtonActionPerformed
         // TODO add your handling code here:
+        DeleteTaskFrame deleteTaskFrame = new DeleteTaskFrame();
+        deleteTaskFrame.setVisible(true);
+        deleteTaskFrame.addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosed(WindowEvent e) {
+                super.windowClosed(e);
+                tasksService.reloadTasksList(false);
+            }
+        });
     }//GEN-LAST:event_deleteButtonActionPerformed
 
     /**
