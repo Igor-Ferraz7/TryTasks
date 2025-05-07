@@ -1,13 +1,11 @@
 package main;
 
-import com.formdev.flatlaf.intellijthemes.FlatArcOrangeIJTheme;
+import com.formdev.flatlaf.intellijthemes.FlatOneDarkIJTheme;
 import interfaces.*;
 
 public class TryTasks {
-
-public class TryTasks {
     public static void main(String[] args) {
-        FlatOneDarkIJTheme.setup();
+        FlatOneDarkIJTheme.setup(); 
 
         MainFrame mainFrame = new MainFrame();
         mainFrame.setVisible(true);
