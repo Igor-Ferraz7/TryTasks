@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package interfaces;
 
 import com.formdev.flatlaf.intellijthemes.*;
@@ -18,7 +14,7 @@ public class MainFrame extends JFrame {
     private String description;
 
     public MainFrame() {
-        //setUndecorated(true);
+        FlatOneDarkIJTheme.setup();
        
         initComponents();
         
