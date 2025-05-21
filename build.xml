@@ -7,14 +7,70 @@
 <!-- the Compile on Save feature is turned off for the project. -->
 <!-- You can turn off the Compile on Save (or Deploy on Save) setting -->
 <!-- in the project's Project Properties dialog box.-->
-<project name="TryTasks" default="default" basedir=".">
+<project name="TryTasks" default="test" basedir=".">
     <description>Builds, tests, and runs the project TryTasks.</description>
-    <import file="nbproject/build-impl.xml"/>
-    <!--
 
-    There exist several targets which are by default empty and which can be 
-    used for execution of your tasks. These targets are usually executed 
-    before and after some main targets. They are: 
+    <!-- Diretórios principais -->
+    <property name="src.dir" location="src"/>
+    <property name="build.classes.dir" location="build/classes"/>
+    <property name="lib.dir" location="lib"/>
+    <property name="dist.dir" location="dist"/>
+
+    <!-- Classpath geral: inclui todos os JARs dentro de lib/ -->
+    <path id="project.class.path">
+        <fileset dir="${lib.dir}">
+            <include name="**/*.jar"/>
+        </fileset>
+    </path>
+
+    <!-- Cria as pastas de saída, caso não existam -->
+    <target name="init">
+        <mkdir dir="${build.classes.dir}"/>
+        <mkdir dir="${dist.dir}"/>
+    </target>
+
+    <!-- Compila todo o código-fonte encontrado em src/ -->
+    <target name="compile" depends="init">
+        <javac srcdir="${src.dir}"
+               destdir="${build.classes.dir}"
+               includeantruntime="false"
+               classpathref="project.class.path"
+               source="11"
+               target="11"/>
+    </target>
+
+    <!-- Executa os testes JUnit 5 via Console Standalone -->
+    <target name="test" depends="compile">
+        <path id="runtime.test.classpath">
+            <pathelement location="${build.classes.dir}"/>
+            <path refid="project.class.path"/>
+        </path>
+        <java jar="${lib.dir}/junit-platform-console-standalone-1.9.2.jar"
+              fork="true"
+              failonerror="true">
+            <arg line="--class-path ${toString:runtime.test.classpath} --scan-class-path"/>
+        </java>
+    </target>
+
+    <!-- Empacota o JAR final do aplicativo (ajuste Main-Class se necessário) -->
+    <target name="jar" depends="compile">
+        <jar destfile="${dist.dir}/TryTasks.jar" basedir="${build.classes.dir}">
+            <manifest>
+                <attribute name="Main-Class" value="com.example.trytasks.TryTasks"/>
+            </manifest>
+        </jar>
+    </target>
+
+    <!-- Limpa os diretórios de build e distribuição -->
+    <target name="clean">
+        <delete dir="${build.classes.dir}"/>
+        <delete dir="${dist.dir}"/>
+    </target>
+
+    <!--
+    There exist several targets which are by default empty and which can be
+    used for execution of your tasks. These targets are usually executed
+    before and after some main targets. They are:
 
       -pre-init:                 called before initialization of project properties
       -post-init:                called after initialization of project properties
@@ -40,9 +96,8 @@
             </obfuscate>
         </target>
 
-    For list of available properties check the imported 
-    nbproject/build-impl.xml file. 
-
+    For list of available properties check the imported
+    nbproject/build-impl.xml file.
 
     Another way to customize the build is by overriding existing main targets.
     The targets of interest are: 

@@ -10,7 +10,7 @@ public class DbManager {
     public static void main(String[] args) throws SQLException {
         DbManager dbManager = new DbManager();
 
-        //dbManager.insertTasks("Tarefa teste");
+        // dbManager.insertTasks("Tarefa teste");
         dbManager.selectTasks(false);
         dbManager.selectTasks(true);
         dbManager.close();
@@ -40,11 +40,11 @@ public class DbManager {
             try (ResultSet rs = ps.executeQuery()) {
                 while (rs.next()) {
                     tasks.put(rs.getInt(1), rs.getString(2));
-                    //printTasks(rs);
+                    // printTasks(rs);
                 }
             } catch (SQLException e) {
-            System.err.println("Não foi possível executar o select:");
-            e.printStackTrace();
+                System.err.println("Não foi possível executar o select:");
+                e.printStackTrace();
             }
         } catch (SQLException e) {
             System.err.println("Não foi possível realizar o prepareStatement:");
@@ -57,12 +57,12 @@ public class DbManager {
     public void insertTasks(String description) {
         String sql = "INSERT INTO tasks(description, is_completed) VALUES(?, ?)";
 
-        try(PreparedStatement ps = connection.prepareStatement(sql)) {
+        try (PreparedStatement ps = connection.prepareStatement(sql)) {
             ps.setString(1, description);
             ps.setBoolean(2, false);
             int linhas = ps.executeUpdate();   // agora grava
             System.out.println("Inseriu " + linhas + " linha(s)");
-        } catch(SQLException e) {
+        } catch (SQLException e) {
             System.err.println("Não foi possível inserir a tarefa:");
             e.printStackTrace();
         }
@@ -93,8 +93,7 @@ public class DbManager {
             e.printStackTrace();
         }
     }
-    
-    
+
     public void deleteTask(int id) {
         String sql = "DELETE FROM tasks WHERE id = ?";
         try (PreparedStatement ps = connection.prepareStatement(sql)) {
@@ -103,6 +102,73 @@ public class DbManager {
             System.out.println("Deletou " + linhas + " linha(s)");
         } catch (SQLException e) {
             System.err.println("Não foi possível deletar a tarefa:");
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * 🔄 Remove todas as tarefas da tabela. Útil para testes automatizados.
+     */
+    public void deleteAllTasks() {
+        String sql = "DELETE FROM tasks";
+        try (PreparedStatement ps = connection.prepareStatement(sql)) {
+            int linhas = ps.executeUpdate();
+            System.out.println("Deletou TODAS as tarefas (" + linhas + " linha(s))");
+        } catch (SQLException e) {
+            System.err.println("Não foi possível limpar a tabela de tarefas:");
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * Seleciona tarefas filtrando pela descrição exata.
+     */
+    public Map<Integer, String> selectTasksByDescription(String description) {
+        String sql = "SELECT id, description FROM tasks WHERE description = ?";
+        Map<Integer, String> tasks = new HashMap<>();
+        try (PreparedStatement ps = connection.prepareStatement(sql)) {
+            ps.setString(1, description);
+            try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    tasks.put(rs.getInt("id"), rs.getString("description"));
+                }
+            }
+        } catch (SQLException e) {
+            System.err.println("Não foi possível buscar tarefas por descrição:");
+            e.printStackTrace();
+        }
+        return tasks;
+    }
+
+    /**
+     * Retorna o maior ID atualmente presente na tabela de tarefas.
+     */
+    public int getLastInsertedId() {
+        String sql = "SELECT MAX(id) FROM tasks";
+        int ultimoId = -1;
+        try (Statement stmt = connection.createStatement();
+             ResultSet rs = stmt.executeQuery(sql)) {
+            if (rs.next()) {
+                ultimoId = rs.getInt(1);
+            }
+        } catch (SQLException e) {
+            System.err.println("Não foi possível obter o último ID inserido:");
+            e.printStackTrace();
+        }
+        return ultimoId;
+    }
+
+    /**
+     * Remove tarefas filtrando pela descrição exata.
+     */
+    public void deleteTasksByDescription(String description) {
+        String sql = "DELETE FROM tasks WHERE description = ?";
+        try (PreparedStatement ps = connection.prepareStatement(sql)) {
+            ps.setString(1, description);
+            int linhas = ps.executeUpdate();
+            System.out.println("Deletou " + linhas + " tarefa(s) pela descrição");
+        } catch (SQLException e) {
+            System.err.println("Não foi possível deletar tarefas por descrição:");
             e.printStackTrace();
         }
     }

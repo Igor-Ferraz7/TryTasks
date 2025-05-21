@@ -1,6 +1,8 @@
 package test;
 
 import data.DbManager;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -19,11 +21,26 @@ public class InserirTarefaTest {
             + "&password=FasoftTryTasks"
             + "&sslmode=require";
 
+    private DbManager dbManager;
+    private final String descricaoTeste = "Prova IHC";
+
+    @BeforeEach
+    void setUp() throws SQLException {
+        dbManager = new DbManager();
+        // Limpar qualquer vestígio da tarefa de teste antes de cada teste
+        limparTarefasPorDescricao(descricaoTeste);
+    }
+
+    @AfterEach
+    void tearDown() throws SQLException {
+        // Limpar a tarefa de teste após cada teste
+        limparTarefasPorDescricao(descricaoTeste);
+        dbManager.close();
+    }
+
     @Test
     void inserirTarefaComSucesso() throws SQLException {
-        DbManager dbManager = new DbManager();
-        String descricaoTeste = "Prova IHC";
-
+        // Inserir tarefa de teste
         dbManager.insertTasks(descricaoTeste);
 
         Map<Integer, String> tarefasInseridas = buscarTarefasPorDescricao(descricaoTeste);
@@ -36,8 +53,6 @@ public class InserirTarefaTest {
         System.out.println("  Esperado que tarefasInseridas contenha a descrição '" + descricaoTeste + "': true");
         System.out.println("  Encontrado que tarefasInseridas contém a descrição '" + descricaoTeste + "': " + tarefasInseridas.containsValue(descricaoTeste));
         assertTrue(tarefasInseridas.containsValue(descricaoTeste));
-
-        //limparTarefasPorDescricao(descricaoTeste);
     }
 
     private Map<Integer, String> buscarTarefasPorDescricao(String description) throws SQLException {

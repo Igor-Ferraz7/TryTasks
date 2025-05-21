@@ -24,7 +24,7 @@ public class DbManagerInserirSelecionarAtualizarIntegracaoTest {
     void setUp() throws SQLException {
         dbManager = new DbManager();
         // Limpar qualquer vestígio da tarefa de teste antes de cada teste
-        //limparTarefasPorDescricao(descricaoTeste);
+        limparTarefasPorDescricao(descricaoTeste);
 
         dbManager.insertTasks(descricaoTeste);
         idTarefaTeste = obterUltimoIdInserido();
@@ -33,13 +33,14 @@ public class DbManagerInserirSelecionarAtualizarIntegracaoTest {
     @AfterEach
     void tearDown() throws SQLException {
         // Limpar a tarefa de teste após cada teste
-        //limparTarefasPorDescricao(descricaoTeste);
+        limparTarefasPorDescricao(descricaoTeste);
         dbManager.close();
     }
 
     @Test
     void inserirTarefaComSucessoEVerificarSelecao() throws SQLException {
         String novaDescricao = "Nova tarefa de integração";
+        // Adicionar e testar seleção
         dbManager.insertTasks(novaDescricao);
         Map<Integer, String> tarefasInseridas = buscarTarefasPorDescricao(novaDescricao);
 
@@ -55,7 +56,9 @@ public class DbManagerInserirSelecionarAtualizarIntegracaoTest {
         System.out.println("  Esperado que tarefasInseridas contenha a descrição '" + novaDescricao + "': true");
         System.out.println("  Encontrado que tarefasInseridas contém a descrição '" + novaDescricao + "': " + tarefasInseridas.containsValue(novaDescricao));
         assertTrue(tarefasInseridas.containsValue(novaDescricao));
-        //limparTarefasPorDescricao(novaDescricao);
+
+        // Limpar tarefa criada no teste
+        limparTarefasPorDescricao(novaDescricao);
     }
 
     @Test
@@ -106,6 +109,7 @@ public class DbManagerInserirSelecionarAtualizarIntegracaoTest {
         }
         return ultimoId;
     }
+
     private void limparTarefasPorDescricao(String description) throws SQLException {
         try (Connection connection = DriverManager.getConnection(dbUrl);
              PreparedStatement ps = connection.prepareStatement("DELETE FROM tasks WHERE description = ?")) {
