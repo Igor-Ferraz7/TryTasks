@@ -18,3 +18,9 @@ Compatível com **Windows 10/11 (64-bit)**.
 > `Unsupported class file major version`.
 
 ---
+
+## ✨ Instalação
+Acesse o link abaixo e baixe o instalador:
+<https://drive.google.com/file/d/1GZP_E9dusomUEiCS2VGabVlkxfl7Jft5/view?usp=drive_link>
+
+Após instalar, aceite todas as permissões e os termos.
