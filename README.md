@@ -1,4 +1,4 @@
-![image](https://github.com/user-attachments/assets/b6d388f9-f6f2-4791-a41f-6734bc7b5e58)![image](https://github.com/user-attachments/assets/3a1731b3-46af-41e1-86a8-02e3f69b46b2)# TryTasks
+# TryTasks
  Projeto de processos de software.
 
 # Guia de Instalação e Execução
@@ -31,9 +31,10 @@ Após instalar, aceite todas as permissões e os termos.
 Com o aplicativo instalado, você poderá acessá-lo pelo atalho disponibilziado na área de trabalho.
 Execute-o para iniciar a aplicação.
 
-1. TELA INICIAL:
-![image](https://github.com/user-attachments/assets/dfbc5eb3-6a3a-4281-b9b7-61f7acf76b69)
-![image](https://github.com/user-attachments/assets/94290583-ec36-439e-894d-df1f507526eb)
+**1. TELA INICIAL:**
+
+<img src="https://github.com/user-attachments/assets/dfbc5eb3-6a3a-4281-b9b7-61f7acf76b69" width="350px">
+<img src="https://github.com/user-attachments/assets/94290583-ec36-439e-894d-df1f507526eb" width="350px">
 
    - A tela incial mostra suas tarefas pendentes e as tarefas concluídas. Caso não tenha nehuma, a lista estará vazia em ambos os status.
    - Ao alternar pelos status, você perceberá duas mudanças:
@@ -43,9 +44,28 @@ Execute-o para iniciar a aplicação.
    - Ao clicar no botão no canto inferior direito, abrirá uma tela para realizar as inclusões de novas tarefas.
    - Ao clicar no botão "DEL", abrirá uma tela para realizar as exclusões de tarefas pendentes.
      
-2. TELA DE CRIAÇÃO DE TAREFAS:
-![image](https://github.com/user-attachments/assets/431d5ea6-9400-422c-9dd5-ac8517633624)
+**2. TELA DE CRIAÇÃO DE TAREFAS:**
 
-   - A tela de criação de tarefas oferece uma caixa de texto para escrever sobre sua tarefa e duas opções para finalizar a ação.
-   - A primeira opção é de cancelar a operação, voltando à tela inicial.
-   - A segunda opção é de concluir a operação, realizando a inclusão da tarefa na lista de pendentes e voltando à tela inicial.
+<img src="https://github.com/user-attachments/assets/431d5ea6-9400-422c-9dd5-ac8517633624" width="350px">
+
+   - A tela de criação de tarefas oferece uma caixa de texto para escrever sobre sua tarefa e duas opções para finalizar a ação:
+     1. A primeira opção é de cancelar a operação, voltando à tela inicial.
+     2. A segunda opção é de concluir a operação, realizando a inclusão da tarefa na lista de pendentes e voltando à tela inicial.
+  
+**3. TELA DE EXCLUSÃO DE TAREFAS:**
+
+<img src="https://github.com/user-attachments/assets/7b7929d6-ca6c-4b7c-873e-30cc01ffc8b3" width="350px">
+<img src="https://github.com/user-attachments/assets/480790d4-848f-41e5-8421-5f3c4c864165" width="350px">
+
+   - A tela de criação de tarefas oferece uma caixa de seleção (dropbox) para selecionar a tarefa e duas opções para finalizar a ação:
+     1. A primeira opção é de cancelar a operação, voltando à tela inicial.
+     2. A segunda opção é de concluir a operação, realizando a exclusão da tarefa na lista de pendentes e voltando à tela inicial.
+
+**4. TELA DE EDIÇÃO DE TAREFAS:**
+
+<img src="https://github.com/user-attachments/assets/2f97fc92-5663-406d-97a4-58509348a8c7" width="350px">
+<img src="https://github.com/user-attachments/assets/024af4a2-527d-42a6-ade4-fdd638c22652" width="350px">
+
+   - A tela de criação de tarefas oferece uma caixa de seleção (dropbox) para selecionar a tarefa e duas opções para finalizar a ação:
+     1. A primeira opção é de cancelar a operação, voltando à tela inicial.
+     2. A segunda opção é de concluir a operação, realizando a exclusão da tarefa na lista de pendentes e voltando à tela inicial.
